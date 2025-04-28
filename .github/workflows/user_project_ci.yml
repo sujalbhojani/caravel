@@ -180,19 +180,19 @@ jobs:
           python3 -m pip install --user volare
           mkdir -p ~/venv/bin
           ln -s $(python3 -m site --user-base)/bin/volare ~/venv/bin/volare
-          
+
       - name: Add volare to PATH
-        run: echo "$HOME/.local/bin" >> $GITHUB_PATH  
-      
+        run: echo "$HOME/venv/bin" >> $GITHUB_PATH
+
       - name: Harden using Openlane
         run: |
           python3 $GITHUB_WORKSPACE/.github/scripts/get_designs.py --design $GITHUB_WORKSPACE
           for word in $(cat harden_sequence.txt); do
-            echo "CURRENT_DESIGN=${word}" >> $GITHUB_ENV
-            make $word
+          echo "CURRENT_DESIGN=${word}" >> $GITHUB_ENV
+          make $word
           done
           rm -rf openlane/user_proj_example/runs openlane/user_project_wrapper/runs pdk openlane_src caravel mgmt_core_wrapper timing-scripts mpw_precheck
-
+          
       - name: Create reproducible
         if: failure()
         run: tar -cf $GITHUB_WORKSPACE/issue_reproducible.tar -C $GITHUB_WORKSPACE/openlane/${{ env.CURRENT_DESIGN }}/runs/${{ env.CURRENT_DESIGN }}/issue_reproducible .
