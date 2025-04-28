@@ -182,7 +182,7 @@ jobs:
           ln -s $(python3 -m site --user-base)/bin/volare ~/venv/bin/volare
 
       - name: Add volare to PATH
-        run: echo "$HOME/venv/bin" >> $GITHUB_PATH
+          run: echo "$HOME/venv/bin" >> $GITHUB_PATH
 
       - name: Harden using Openlane
         run: |
