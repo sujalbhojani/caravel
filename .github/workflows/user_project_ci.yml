@@ -46,11 +46,6 @@ jobs:
         with:
           name: caravel-tarball
           path: /tmp/caravel.tar
-      - name: Install volare
-         run: |
-           pip install volare
-           echo "PATH=$(python3 -m site --user-base)/bin:$PATH" >> $GITHUB_ENV
-  
   download_deps:
     runs-on: ubuntu-latest
     strategy:
